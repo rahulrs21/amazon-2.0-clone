@@ -2,7 +2,9 @@ import Image from "next/image"
 import { useState } from "react"
 import { StarIcon } from "@heroicons/react/24/solid"
 
-// import Currency from 'react-currency-formatter';
+import Currency from 'react-currency-formatter';
+import { useDispatch } from "react-redux";
+import { addToBasket } from "../slices/basketSlice";
 
 
 
@@ -11,6 +13,8 @@ const MIN_RATING = 1;
 
 function Product({id, title, price, description, category, image}) {
 
+  const dispatch = useDispatch()  // helps to push the data to REDUX STORE
+
 //   Generating Random stars
   const [rating, setRating] = useState(
     Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
@@ -18,7 +22,27 @@ function Product({id, title, price, description, category, image}) {
   );
 
 //   Generating Random Prime memeber
-  const [hasPrime] = useState( Math.random() < 0.5 )   // Math.random generates number b/w 0 and 1. so wrote 0.5
+  const [hasPrime] = useState( Math.random() < 0.5 )   // Math.random generates number b/w 0 and 1. so wrote 0.5 like boolean
+
+
+  // Add to basket function
+  const addItemToBasket = () => {
+    const product = {
+      id, 
+      title,
+      price,
+      rating,
+      description,
+      category,
+      image,
+      hasPrime
+    };
+
+    // sending the product  as an action to the REDUX STORE 
+    dispatch(addToBasket(product))     // pushing product to addToBasket which is defined in 'basketSlice redux store'
+
+    console.log("Product TITLE = ",title )
+  }
 
   return (
     <div  className="relative flex flex-col m-5 bg-white z-30 p-10 ">
@@ -46,8 +70,7 @@ function Product({id, title, price, description, category, image}) {
         {/* Currency */}
         {/* here  we need to install react currency formatter https://www.npmjs.com/package/react-currency-formatter */}
         <div className="mb-5">
-            {/* <Currency quantity={price} currency="EUR" /> */}
-            $ {price}
+            <Currency quantity={price} currency="USD" />
         </div>
         
 
@@ -59,7 +82,7 @@ function Product({id, title, price, description, category, image}) {
         )}
 
 
-        <button className="mt-auto button">Add to Cart</button>
+        <button onClick={addItemToBasket} className="mt-auto button">Add to Cart</button>
         
     </div>
   )

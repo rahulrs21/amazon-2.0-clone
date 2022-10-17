@@ -6,7 +6,7 @@ function ProductFeed({products}) {
 
         {/* SLICE functionality >>> slice(0,4) - shows me first 4 products */}
 
-        {products.slice(0,4).map(({id, title, price, description, category, image}) => (
+        {products.slice(0,4).map(({id, title, price, rating, description, category, image}) => (
             <Product 
                 key={id}
                 id={id}
@@ -15,6 +15,7 @@ function ProductFeed({products}) {
                 category={category}
                 image={image}
                 price={price}
+                rating={rating}
 
             />
         ) )}
