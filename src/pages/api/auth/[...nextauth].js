@@ -10,7 +10,7 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET
     })
   ],
-  secret: 'Rahul@123',
+  // secret: 'Rahul@123',
   debug: true,
   theme: 'dark',
 }
