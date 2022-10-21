@@ -1,5 +1,6 @@
 import { StarIcon } from "@heroicons/react/24/solid"
 import Image from "next/image"
+import { useEffect, useState } from "react";
 
 import Currency from 'react-currency-formatter';
 import { useDispatch } from "react-redux";
@@ -8,6 +9,16 @@ import { addToBasket, removeFromBasket } from "../slices/basketSlice";
 function CheckoutProduct({ id, title, price, rating, description, category, image, hasPrime }) {
 
   const dispacth = useDispatch();
+
+  const [cart, setCart] = useState(false)
+  const [removecart, setremoveCart] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCart(false)
+    }, 2000)
+  }, [cart])
+
   
   const addItemToBasket = () => {
     const product = {
@@ -21,11 +32,15 @@ function CheckoutProduct({ id, title, price, rating, description, category, imag
         hasPrime
     }
     dispacth(addToBasket(product))   // push item into REDUX STORE
+
+    setCart(true)
+
   }
 
   const removeItemToBasket = () => {
     // Remove item from REDUX
     dispacth(removeFromBasket({ id }))
+
   }
 
   return (
@@ -57,7 +72,7 @@ function CheckoutProduct({ id, title, price, rating, description, category, imag
             
         {/* Right Add/Remove button  */}
         <div className="flex flex-col space-y-2 my-auto justify-self-end">
-            <button className="button" onClick={addItemToBasket}>Add to Basket</button>
+            <button className={cart ? `button_added_to_cart` : `button`} onClick={addItemToBasket}>{cart ? `Added successfully` : `Add to Basket`}</button>
             <button className="button" onClick={removeItemToBasket}>Remove<span className="hidden md:inline-block"> from Basket</span></button>
         </div>
     </div>

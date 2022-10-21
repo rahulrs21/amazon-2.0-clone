@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { StarIcon } from "@heroicons/react/24/solid"
 
 import Currency from 'react-currency-formatter';
@@ -24,6 +24,13 @@ function Product({id, title, price, description, category, image}) {
 //   Generating Random Prime memeber
   const [hasPrime] = useState( Math.random() < 0.5 )   // Math.random generates number b/w 0 and 1. so wrote 0.5 like boolean
 
+  const [cart, setCart] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCart(false)
+    }, 2000)
+  }, [cart])
 
   // Add to basket function
   const addItemToBasket = () => {
@@ -42,6 +49,8 @@ function Product({id, title, price, description, category, image}) {
     dispatch(addToBasket(product))     // pushing product to addToBasket which is defined in 'basketSlice redux store'
 
     console.log("Product TITLE = ",title )
+
+    setCart(true)
   }
 
   return (
@@ -82,7 +91,7 @@ function Product({id, title, price, description, category, image}) {
         )}
 
 
-        <button onClick={addItemToBasket} className="mt-auto button">Add to Cart</button>
+        <button onClick={addItemToBasket} className={cart ? `mt-auto button_added_to_cart` : `mt-auto button`}>{cart ? `Added to cart successfully` : `Add to Cart`}</button>
         
     </div>
   )

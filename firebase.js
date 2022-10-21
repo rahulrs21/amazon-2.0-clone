@@ -1,5 +1,6 @@
 // v9 compat packages are API compatible with v8 code
-import firebase from 'firebase/compat/app';
+// import firebase from 'firebase/compat/app';
+import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
@@ -16,4 +17,12 @@ const firebaseConfig = {
 
 const app = !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app();
 
-export {app}
+const db = app.firestore();
+
+export default db;
+
+
+
+
+// "firebase": "^9.12.1",
+// "firebase": "^8.2.1"

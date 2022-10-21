@@ -11,4 +11,9 @@
     .button{
         @apply p-2 text-xs md:text-sm bg-gradient-to-b from-yellow-200 to-yellow-400 border border-yellow-300 rounded-sm focus:outline-none focus:right-2 focus:ring-yellow-500 active:from-yellow-500; 
     }
+
+    .button_added_to_cart {
+        @apply p-2 text-xs md:text-sm bg-gradient-to-b from-green-100 to-green-200 border border-green-300 rounded-sm focus:outline-none focus:right-2 focus:ring-green-500 active:from-green-500; 
+    }
+
 }

@@ -5,6 +5,11 @@ import Header from "../components/Header"
 import { selectItems, selectTotal } from "../slices/basketSlice"
 import Currency from 'react-currency-formatter';
 import { useSession } from "next-auth/react";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+
+const stripePromise = loadStripe(process.env.stripe_public_key)  // here we installing PUBLIC KEY to start the session and to get access to stripe account
+// to get the publishable key : go here https://dashboard.stripe.com/test/apikeys
 
 
 function Checkout() {
@@ -13,6 +18,32 @@ function Checkout() {
   const total = useSelector(selectTotal);
 
   const { data: session } = useSession()
+
+  const createCheckOutSession = async () => {
+    const stripe = await stripePromise;
+
+    // Call the backend to create checkout session...
+    // need to create new file called 'create-checkout-session.js' inside 'api'. This gonna be backend
+
+    // Now install 'AXIOS'   npm i axios  >>> how we gonna make sort of network cause
+
+    const checkoutSession = await axios.post('/api/create-checkout-session', {
+        items: items, 
+        email: session.user.email
+    });
+
+
+    // redirect the user/customer to stripe checkout   4:00:00
+    const result = await stripe.redirectToCheckout({
+        sessionId: checkoutSession.data.id,
+    })
+
+
+    if(result.error) {
+        alert(result.error.message)
+    }
+
+  }
 
   return (
     <div className="bg-gray-100">
@@ -59,9 +90,11 @@ function Checkout() {
                             </span>
                         </h2>
 
-                        <button disabled={!session} className={`button mt-2 ${!session && 'from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed'}`}>
+                        <button role="link" onClick={createCheckOutSession} disabled={!session} className={`button mt-2 ${!session && 'from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed'}`}>
                             {!session ? 'Sign in to Checkout' : 'Proceed to Checkout'}
                         </button>
+
+                        {/* STRIPE SESSION starts 3:18:00 */}
                     </div>
                 )}
             </div>
