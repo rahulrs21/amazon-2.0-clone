@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/outline"
 
 // import { useSession, signIn, signOut } from "next-auth/react"   //next-auth/client was renamed to next-auth/react in v4
-import { signIn, signOut, useSession } from "next-auth/react"
+import { signIn, signOut, useSession } from "next-auth/react"    //npm install next-auth
 
  // in NextJS we have builtin Router
 import { useRouter } from "next/router";    
