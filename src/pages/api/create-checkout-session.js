@@ -9,7 +9,7 @@ export default async (req, res) => {
     const transformedItems = items.map((item) => ( {    // we are returning as object
         
         quantity: 1,
-        // description: item.description,
+        
         
 
         price_data: {

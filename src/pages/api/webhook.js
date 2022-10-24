@@ -38,7 +38,7 @@ const fullfillOrder = async (session) => {
     .doc(session.metadata.email)    // metadata pushed in create-checkout.session.js page
     .collection('orders')
     .doc(session.id).set({          // session.id is a id of item which is stored in checkout stripe page
-        amount: session.amount_total / 100,   // I  stripe we wrote as 'chillaries/pounds' now we converting to 'rupess/dollar'
+        amount: session.amount_total / 100,   // In  stripe we wrote as 'chillaries/pounds' now we converting to 'rupess/dollar'
         amount_shipping: session.total_details.amount_shipping / 100,   //DOUBT 4:39:10
         images: JSON.parse(session.metadata.images),            //JSON.parse() -  This will convert string into JSON. opposite of 'stringify'
         timestamp: admin.firestore.FieldValue.serverTimestamp()
