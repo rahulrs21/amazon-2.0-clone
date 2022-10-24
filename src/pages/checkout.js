@@ -14,7 +14,7 @@ const stripePromise = loadStripe(process.env.stripe_public_key)  // here we inst
 
 function Checkout() {
 
-  const items = useSelector(selectItems);
+  const items = useSelector(selectItems); 
   const total = useSelector(selectTotal);
 
   const { data: session } = useSession()
