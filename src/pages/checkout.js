@@ -7,6 +7,7 @@ import Currency from 'react-currency-formatter';
 import { useSession } from "next-auth/react";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
+import Head from "next/head";
 
 const stripePromise = loadStripe(process.env.stripe_public_key)  // here we installing PUBLIC KEY to start the session and to get access to stripe account
 // to get the publishable key : go here https://dashboard.stripe.com/test/apikeys
@@ -47,6 +48,11 @@ function Checkout() {
 
   return (
     <div className="bg-gray-100">
+        <Head>
+            <title>Amazon 2.0 - Checkout</title>
+            <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Amazon_icon.svg/2500px-Amazon_icon.svg.png"></link>
+        </Head>
+
         <Header />
 
         <main className="lg:flex max-w-screen-2xl mx-auto">

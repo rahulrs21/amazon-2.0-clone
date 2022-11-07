@@ -8,6 +8,10 @@ function success() {
 
   return (
     <div className="bg-gray-100 h-screen">
+        <Head>
+            <title>Amazon 2.0 - Success</title>
+            <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Amazon_icon.svg/2500px-Amazon_icon.svg.png"></link>
+        </Head>
         <Header />
 
         <main className="max-w-screen-lg mx-auto">
